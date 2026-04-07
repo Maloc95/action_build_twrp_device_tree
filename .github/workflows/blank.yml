@@ -29,7 +29,7 @@ jobs:
           python3-pip \
           cpio \
           wget \
-          zip \
+          zip file lzop lz4 \
           unzip
         
     - name: Install TWRP generator
