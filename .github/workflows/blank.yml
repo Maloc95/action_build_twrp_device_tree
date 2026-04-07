@@ -34,7 +34,7 @@ jobs:
         
     - name: Install TWRP generator
       run: |
-        pip3 install --upgrade aospdtgen
+        pip3 install --upgrade twrpdtgen
         
     - name: Download recovery image
       run: |
@@ -44,7 +44,7 @@ jobs:
     - name: Generate device tree
       run: |
         mkdir -p device_tree_output
-        python3 -m aospdtgen \
+        python3 -m twrpdtgen \
           -o device_tree_output \
           recovery.img
         
