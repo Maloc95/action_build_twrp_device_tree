@@ -20,32 +20,31 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v5
-      with:
-          python-version: '3.10'
       
     - name: Set up environment
       run: |
         sudo apt-get update
         sudo apt-get install -y \
-          file cpio lz4 xz-utils bc p7zip-full dos2unix \
-          unzip zip git wget curl
+          python3 \
+          python3-pip \
+          cpio \
+          wget \
+          zip \
+          unzip
         
     - name: Install TWRP generator
       run: |
-        pip3 install --upgrade aospdtgen
+        pip3 install --upgrade twrpdtgen
         
     - name: Download recovery image
       run: |
-        wget -O  "${{ github.event.inputs.IMG_URL }}"
-        file  || true  # Display file info for debugging
+        wget -O recovery.img "${{ github.event.inputs.IMG_URL }}"
+        file recovery.img || true  # Display file info for debugging
       
     - name: Generate device tree
       run: |
         mkdir -p device_tree_output
-        python3 -m aospdtgen \
+        python3 -m twrpdtgen \
           -o device_tree_output \
           recovery.img
         
